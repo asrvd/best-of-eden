@@ -10,7 +10,7 @@ const vote = async (req: NextApiRequest, res: NextApiResponse) => {
     if (req.method === "POST") {
       try {
         await prisma?.user.update({
-          where: { id: session.user.id },
+          where: { id: session?.user?.id },
           data: {
             votes: {
               create: {

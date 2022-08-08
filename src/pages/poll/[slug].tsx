@@ -92,7 +92,7 @@ export default function Albums(props: Props) {
         <img
           src={album.cover}
           alt={album.name}
-          className="w-32 h-32 lg:w-48 lg:h-48 md:h-48 md:w-48 drop-shadow-2xl z-10 absolute -top-6 -left-2 lg:-top-16 lg:-left-8 md:-top-16 md:-left-8"
+          className="w-32 h-32 lg:w-48 lg:h-48 md:h-48 md:w-48 drop-shadow-2xl z-10 absolute -top-6 -left-2 lg:-top-14 lg:-left-8 md:-top-16 md:-left-8"
         ></img>
         <h2 className="z-50 text-[3.5rem] flex flex-col gap-2 leading-none lg:text-[5rem] md:text-[5rem] font-extrabold drop-shadow-[0_35px_35px_rgba(0,0,0,0.25)] text-sky-100">
           {album.name !== "i think you think too much of me"
