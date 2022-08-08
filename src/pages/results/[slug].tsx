@@ -12,24 +12,17 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }: any) {
-  const session = await getSession();
   const album = await prisma.album.findFirst({ where: { slug: params.slug } });
   const tracks = await prisma.track.findMany({
     where: { album: { id: album?.id } },
     orderBy: { voteCount: "desc" },
   });
-  const hasVoted = await prisma.vote.findFirst({
-    where: {
-      userId: session?.user?.id,
-      album: album?.name,
-    },
-  });
+
   if (album) {
     return {
       props: {
         album,
         tracks,
-        hasVoted: hasVoted !== null,
       },
       revalidate: 1,
     };
@@ -46,11 +39,10 @@ export async function getStaticProps({ params }: any) {
 type Props = {
   album: Album;
   tracks: Track[];
-  hasVoted: boolean;
 };
 
 export default function Albums(props: Props) {
-  const { album, tracks, hasVoted } = props;
+  const { album, tracks } = props;
 
   return (
     <div className="relative flex flex-col justify-center items-center min-h-screen p-4 min-w-screen overflow-x-hidden font-epilogue bg-gradient-to-t from-orange-400 to-sky-400">

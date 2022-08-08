@@ -1,6 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { unstable_getServerSession as getServerSession } from "next-auth";
 import { authOptions as nextAuthOptions } from "./auth/[...nextauth]";
+import { prisma } from "../../server/db/client";
 
 const vote = async (req: NextApiRequest, res: NextApiResponse) => {
   const session = await getServerSession(req, res, nextAuthOptions);
@@ -9,7 +10,7 @@ const vote = async (req: NextApiRequest, res: NextApiResponse) => {
   if (session?.user) {
     if (req.method === "POST") {
       try {
-        await prisma?.user.update({
+        await prisma.user.update({
           where: { id: session?.user?.id },
           data: {
             votes: {
@@ -20,7 +21,7 @@ const vote = async (req: NextApiRequest, res: NextApiResponse) => {
             },
           },
         });
-        await prisma?.album.update({
+        await prisma.album.update({
           where: {
             name: album as string,
           },
@@ -30,7 +31,7 @@ const vote = async (req: NextApiRequest, res: NextApiResponse) => {
             },
           },
         });
-        await prisma?.track.update({
+        await prisma.track.update({
           where: {
             id: Number(trackId as string),
           },

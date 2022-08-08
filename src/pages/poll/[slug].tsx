@@ -70,7 +70,6 @@ export default function Albums(props: Props) {
       toast.error("you have already voted for this album", { id: toastId });
       return;
     }
-    console.log("owo");
     try {
       await axios.post("/api/vote", {
         album: album.name,

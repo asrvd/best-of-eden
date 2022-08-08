@@ -9,8 +9,11 @@ import { FiExternalLink } from "react-icons/fi";
 import { useRouter } from "next/router";
 
 const Home: NextPage = () => {
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
   const router = useRouter();
+  if (status === "loading") {
+    return <p>Loading...</p>;
+  }
   return (
     <>
       {session?.user && (
