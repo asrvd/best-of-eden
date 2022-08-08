@@ -6,6 +6,7 @@ import Head from "next/head";
 import NProgress from "nprogress";
 import { Router } from "next/router";
 import "../styles/nprogress.css";
+import Script from "next/script";
 
 const MyApp: AppType = ({
   Component,
@@ -23,10 +24,16 @@ const MyApp: AppType = ({
           name="description"
           content="a place for ranking eden tracks from each album based on public votes"
         />
+
         <link rel="icon" href="https://i.imgur.com/JTGzPNw.png" />
       </Head>
       <Component {...pageProps} />
       <Toaster />
+      <Script
+        strategy="afterInteractive"
+        data-website-id="ebf8a18f-e5be-4665-9181-3dcbb5921a46"
+        src="https://umami.asheeshh.ga/umami.js"
+      />
     </SessionProvider>
   );
 };
