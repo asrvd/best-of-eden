@@ -48,7 +48,9 @@ export default function Albums(props: Props) {
     <div className="relative flex flex-col justify-center items-center min-h-screen p-4 min-w-screen overflow-x-hidden font-epilogue bg-gradient-to-t from-orange-400 to-sky-400">
       <div className="relative p-4 flex flex-col self-start lg:ml-48 md:ml-48 gap-6 mb-8">
         <img
-          src={`https://${process.env.NEXT_PUBLIC_CI_TOKEN}.cloudimg.io/${album.cover.substring(
+          src={`https://${
+            process.env.NEXT_PUBLIC_CI_TOKEN
+          }.cloudimg.io/${album.cover.substring(
             8
           )}?force_format=webp&width=300&height=300`}
           alt={album.name}
@@ -73,7 +75,7 @@ export default function Albums(props: Props) {
               className="text-orange-100 lg:text-base text-sm md:text-base drop-shadow-2xl p-1 hover:shadow-2xl hover:backdrop-saturate-[1.8] rounded cursor-pointer duration-300 text-left flex justify-between items-center"
             >
               <p>{track.name}</p>
-              <p>{(track.voteCount / album.voteCount) * 100}%</p>
+              <p>{((track.voteCount / album.voteCount) * 100).toFixed(0)}%</p>
             </button>
           ))}
         </div>
