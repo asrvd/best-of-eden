@@ -89,7 +89,9 @@ export default function Albums(props: Props) {
     <div className="relative flex flex-col justify-center items-center min-h-screen p-4 min-w-screen overflow-x-hidden font-epilogue bg-gradient-to-t from-orange-400 to-sky-400">
       <div className="relative p-4 flex flex-col self-start lg:ml-48 md:ml-48 gap-6 mb-8">
         <img
-          src={album.cover}
+          src={`https://${process.env.NEXT_PUBLIC_CI_TOKEN}.cloudimg.io/${album.cover.substring(
+            8
+          )}?force_format=webp&width=300&height=300`}
           alt={album.name}
           className="w-32 h-32 lg:w-48 lg:h-48 md:h-48 md:w-48 drop-shadow-2xl z-10 absolute -top-6 -left-2 lg:-top-14 lg:-left-8 md:-top-16 md:-left-8"
         ></img>
@@ -123,7 +125,7 @@ export default function Albums(props: Props) {
         <p>
           made with {`<3`} by{" "}
           <a
-            className="text-orange-800"
+            className="text-orange-800 font-semibold"
             target={"_blank"}
             href="https://github.com/asrvd"
             rel={"noreferrer"}

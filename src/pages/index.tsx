@@ -11,7 +11,7 @@ import { useRouter } from "next/router";
 const Home: NextPage = () => {
   const { data: session, status } = useSession();
   const router = useRouter();
-  
+
   return (
     <>
       {session?.user && (
@@ -33,7 +33,7 @@ const Home: NextPage = () => {
               votes
             </p>
             <button
-              className="self-start flex justify-center items-center gap-2 text-base focus:outline-none bg-gray-200 text-gray-800 shadow-lg hover:shadow-2xl p-4 rounded mt-16 lg:mt-32 duration-300 md:mt-28"
+              className="self-start flex justify-center items-center gap-2 text-base focus:outline-none bg-gray-200 text-gray-800 shadow-lg hover:shadow-2xl p-4 py-2 rounded mt-16 lg:mt-32 duration-300 md:mt-28"
               onClick={() => router.push("/albums")}
             >
               <FiExternalLink />
@@ -75,7 +75,7 @@ const Home: NextPage = () => {
               votes
             </p>
             <button
-              className="self-start flex justify-center items-center gap-2 text-base focus:outline-none bg-gray-200 text-gray-800 shadow-lg hover:shadow-2xl p-4 rounded mt-16 lg:mt-32 duration-300 md:mt-28 focus:ring-0 outline-none"
+              className="self-start flex justify-center items-center gap-2 text-base focus:outline-none bg-gray-200 text-gray-800 shadow-lg hover:shadow-2xl p-4 py-2 rounded mt-16 lg:mt-32 duration-300 md:mt-28 focus:ring-0 outline-none"
               onClick={() =>
                 signIn("discord", {
                   callbackUrl: "/albums",

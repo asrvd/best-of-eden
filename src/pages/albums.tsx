@@ -41,23 +41,36 @@ export default function Albums(props: Props) {
             className="w-full h-full  flex flex-col justify-center items-center gap-2 tracking-tighter leading-none"
           >
             <img
-              src={album.cover}
+              src={`https://${
+                process.env.NEXT_PUBLIC_CI_TOKEN
+              }.cloudimg.io/${album.cover.substring(
+                8
+              )}?force_format=webp&width=300&height=300`}
               alt={album.name}
               className="shadow-lg select-none hover:shadow-2xl hover:scale-[1.02] duration-300 cursor-pointer"
               onClick={() => router.push(`/poll/${album.slug}`)}
             ></img>
-            <p className="text-lg leading-tight">{(album.name === "i think you think too much of me") ? album.slug : album.name}</p>
-            <p className="text-base leading-none">
-              [{" "}
-              {album.voteCount === 1
-                ? `${album.voteCount} person voted`
-                : `${album.voteCount} people voted`}{" "}
-              ]
+            <p className="text-lg leading-tight text-gray-800">
+              {album.name === "i think you think too much of me"
+                ? album.slug
+                : album.name}
             </p>
           </div>
         ))}
       </div>
-      {/* <button onClick={() => addAlbums()}>add</button> */}
+      <div className="absolute flex justify-start items-center bottom-0 px-4 py-1 text-gray-600 w-full lg:w-2/3 md:w-2/3 text-sm">
+        <p className="self-start">
+          made with {`<3`} by{" "}
+          <a
+            className="text-gray-800 font-semibold"
+            target={"_blank"}
+            href="https://github.com/asrvd"
+            rel={"noreferrer"}
+          >
+            ashish
+          </a>
+        </p>
+      </div>
     </div>
   );
 }
