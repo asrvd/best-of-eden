@@ -89,7 +89,9 @@ export default function Albums(props: Props) {
     <div className="relative flex flex-col justify-center items-center min-h-screen p-4 min-w-screen overflow-x-hidden font-epilogue bg-gradient-to-t from-orange-400 to-sky-400">
       <div className="relative p-4 flex flex-col self-start lg:ml-48 md:ml-48 gap-6 mb-8">
         <img
-          src={`https://${process.env.NEXT_PUBLIC_CI_TOKEN}.cloudimg.io/${album.cover.substring(
+          src={`https://${
+            process.env.NEXT_PUBLIC_CI_TOKEN
+          }.cloudimg.io/${album.cover.substring(
             8
           )}?force_format=webp&width=300&height=300`}
           alt={album.name}
@@ -121,8 +123,8 @@ export default function Albums(props: Props) {
           ))}
         </div>
       </div>
-      <div className="absolute bottom-0 px-4 py-1 text-orange-100 self-start lg:ml-48 md:ml-48 text-sm">
-        <p>
+      <div className="absolute flex gap-2 bottom-0 px-4 py-1 text-orange-100 self-start lg:ml-48 md:ml-48 text-xs lg:text-sm md:text-sm">
+        <p className="text-xs lg:text-sm md:text-sm">
           made with {`<3`} by{" "}
           <a
             className="text-orange-800 font-semibold"
@@ -132,6 +134,18 @@ export default function Albums(props: Props) {
           >
             ashish
           </a>
+        </p>
+        {" | "}
+        <p className="text-xs lg:text-sm md:text-sm">
+          go back to{" "}
+          <span
+            className="text-orange-800 cursor-pointer font-semibold"
+            onClick={() => {
+              router.push("/albums");
+            }}
+          >
+            albums
+          </span>
         </p>
       </div>
     </div>

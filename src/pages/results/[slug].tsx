@@ -2,17 +2,17 @@
 import { prisma } from "../../server/db/client";
 import type { Album, Track } from "@prisma/client";
 import { getSession } from "next-auth/react";
+import type { Session } from "next-auth";
+import { GetServerSideProps } from "next";
+import { useRouter } from "next/router";
 
-export async function getStaticPaths() {
-  const albums = await prisma.album.findMany();
-  return {
-    paths: albums.map((album: any) => ({ params: { slug: album.slug } })),
-    fallback: false,
-  };
-}
-
-export async function getStaticProps({ params }: any) {
-  const album = await prisma.album.findFirst({ where: { slug: params.slug } });
+export const getServerSideProps: GetServerSideProps<{
+  session: Session | null;
+}> = async (context) => {
+  const session = await getSession(context);
+  const album = await prisma.album.findFirst({
+    where: { slug: context?.params?.slug as string },
+  });
   const tracks = await prisma.track.findMany({
     where: { album: { id: album?.id } },
     orderBy: { voteCount: "desc" },
@@ -21,10 +21,10 @@ export async function getStaticProps({ params }: any) {
   if (album) {
     return {
       props: {
+        session,
         album,
         tracks,
       },
-      revalidate: 1,
     };
   }
 
@@ -34,7 +34,7 @@ export async function getStaticProps({ params }: any) {
       permanent: false,
     },
   };
-}
+};
 
 type Props = {
   album: Album;
@@ -43,6 +43,7 @@ type Props = {
 
 export default function Albums(props: Props) {
   const { album, tracks } = props;
+  const router = useRouter();
 
   return (
     <div className="relative flex flex-col justify-center items-center min-h-screen p-4 min-w-screen overflow-x-hidden font-epilogue bg-gradient-to-t from-orange-400 to-sky-400">
@@ -80,8 +81,8 @@ export default function Albums(props: Props) {
           ))}
         </div>
       </div>
-      <div className="absolute bottom-0 px-4 py-1 text-orange-100 self-start lg:ml-48 md:ml-48 text-sm">
-        <p>
+      <div className="flex absolute bottom-0 px-4 py-1 gap-2 text-orange-100 self-start lg:ml-48 md:ml-48 text-xs lg:text-sm md:text-sm">
+        <p className="text-xs lg:text-sm md:text-sm">
           made with {`<3`} by{" "}
           <a
             className="text-orange-800 font-semibold"
@@ -91,6 +92,18 @@ export default function Albums(props: Props) {
           >
             ashish
           </a>
+        </p>
+        {" | "}
+        <p className="text-xs lg:text-sm md:text-sm">
+          go back to{" "}
+          <span
+            className="text-orange-800 font-semibold cursor-pointer"
+            onClick={() => {
+              router.push("/albums");
+            }}
+          >
+            albums
+          </span>
         </p>
       </div>
     </div>
