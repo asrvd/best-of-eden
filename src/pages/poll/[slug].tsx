@@ -78,7 +78,7 @@ export default function Albums(props: Props) {
       });
       toast.success("your vote has been casted!", { id: toastId });
       setTimeout(() => {
-        window.location.reload();
+        router.push(`/results/${album.slug}`);
       }, 1000);
     } catch (error) {
       console.log(error);
